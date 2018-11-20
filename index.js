@@ -13,6 +13,7 @@ const movies = require('./routes/movies');
 const customers = require('./routes/customers');
 const genres = require('./routes/genres');
 const rentals = require('./routes/rentals');
+const users = require('./routes/users');
 
 const helmet = require('helmet');
 const morgan = require('morgan');
@@ -34,6 +35,7 @@ app.use('/api/movies', movies);
 app.use('/api/customers', customers);
 app.use('/api/genres', genres);
 app.use('/api/rentals', rentals)
+app.use('/api/users', users);
 
 console.log(`Aplication Name ${config.get('name')}`);
 console.log(`Mail Server ${config.get('mail.host')}`);

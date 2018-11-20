@@ -3,24 +3,24 @@ const Joi = require('joi');
 
 
 
-const Users = mongoose.model('users', new mongoose.Schema({
+const User = mongoose.model('users', new mongoose.Schema({
   name: {
     type: String,
     minlength: 2,
-    minlength: 50,
+    maxlength: 50,
     required: true
   },
   email: {
     type: String,
     minlength: 2,
-    minlength: 255,
+    maxlength: 255,
     required: true,
     unique:true
   },
   password: {
     type: String,
     minlength: 2,
-    minlength: 255,
+    maxlength: 255,
     required: true
   }
 }));
@@ -34,5 +34,5 @@ function validateUser(user) {
   return Joi.validate(user, userSchema);
 }
 
-module.exports.Users = Users;
+module.exports.User = User;
 module.exports.validation = validateUser;
