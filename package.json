@@ -18,6 +18,7 @@
     "helmet": "^3.14.0",
     "joi": "^14.0.4",
     "joi-password-complexity": "^2.0.1",
+    "jsonwebtoken": "^8.4.0",
     "lodash": "^4.17.11",
     "mongoose": "^5.3.11",
     "morgan": "^1.9.1",

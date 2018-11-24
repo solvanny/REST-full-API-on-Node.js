@@ -1,4 +1,6 @@
 const bcrypt = require('bcrypt');
+const config = require('config')
+const jwt = require('jsonwebtoken');
 const express = require('express');
 const _ = require('lodash');
 const router = express.Router();
@@ -23,7 +25,8 @@ router.post('/', async (req, res) => {
   let validPassword = await bcrypt.compare(req.body.password, user.password);
   if(!validPassword) return res.status(400).send('Invalid email or password.');
 
-  res.send(true);
+  let token = jwt.sign({ _id: user._id }, config.get('jwtPrivateKey'));
+  res.send(token );
 });
 
 //Delete user by ID
