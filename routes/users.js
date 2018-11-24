@@ -1,4 +1,6 @@
 const bcrypt = require('bcrypt');
+const jwt  = require('jsonwebtoken');
+const config = require('config');
 const express = require('express');
 const _ = require('lodash');
 const router = express.Router();
@@ -23,9 +25,10 @@ router.post('/', async (req, res) => {
 
   let salt = await bcrypt.genSalt(10);
   user.password = await bcrypt.hash(user.password, salt);
-  
   await user.save();
-  res.send(_.pick(user, ['_id', 'name', 'email']));
+
+  let token = jwt.sign({ _id: user._id }, config.get('jwtPrivateKey'));
+  res.header('x-auth-token', token).send(_.pick(user, ['_id', 'name', 'email']));
 });
 
 //Update user by ID
