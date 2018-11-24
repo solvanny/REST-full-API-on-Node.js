@@ -2,7 +2,8 @@ const bcrypt = require('bcrypt');
 const express = require('express');
 const _ = require('lodash');
 const router = express.Router();
-const { User, validation } = require('../modules/user');
+const { User} = require('../modules/user');
+const Joi = require('joi');
 
 
 //Get all users
@@ -17,24 +18,12 @@ router.post('/', async (req, res) => {
   if (error) return res.status(400).send(error.details[0].message);
 
   let user = await User.findOne({email: req.body.email});
-  if(user) res.status(400).send('User allredy registred!');
+  if(!user) res.status(400).send('Invalid email or password.');
   
-  user = new User(_.pick(req.body, ['name', 'password', 'email']));
+  let validPassword = await bcrypt.compare(req.body.password, user.password);
+  if(!validPassword) return res.status(400).send('Invalid email or password.');
 
-  let salt = await bcrypt.genSalt(10);
-  user.password = await bcrypt.hash(user.password, salt);
-  
-  await user.save();
-  res.send(_.pick(user, ['_id', 'name', 'email']));
-});
-
-//Update user by ID
-router.put('/:id', async (req, res) => {
-  let { error } = validation(req.body); 
-  if (error) return res.status(400).send(error.details[0].message);
-  let user = await User.findByIdAndUpdate(req.params.id, _.pick(req.body, ['name', 'password', 'email']), { new: true });
-  if (!user) return res.status(404).send('The user with the given ID was not found.');
-  res.send(user);
+  res.send(true);
 });
 
 //Delete user by ID
@@ -51,4 +40,12 @@ router.get('/:id', async (req, res) => {
   res.send(user);
 });
 
+
+function validation(req) {
+  let schema = {
+    email: Joi.string().min(5).max(50).email({ minDomainAtoms: 2 }).required(),
+    password: Joi.string().min(5).max(255).regex(/^[a-zA-Z0-9]{3,30}$/).required()
+  }
+  return Joi.validate(req, schema)
+}
 module.exports = router;

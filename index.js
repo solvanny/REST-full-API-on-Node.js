@@ -14,6 +14,7 @@ const customers = require('./routes/customers');
 const genres = require('./routes/genres');
 const rentals = require('./routes/rentals');
 const users = require('./routes/users');
+const auth = require('./routes/auth')
 
 const helmet = require('helmet');
 const morgan = require('morgan');
@@ -36,6 +37,7 @@ app.use('/api/customers', customers);
 app.use('/api/genres', genres);
 app.use('/api/rentals', rentals)
 app.use('/api/users', users);
+app.use('/api/auth', auth);
 
 console.log(`Aplication Name ${config.get('name')}`);
 console.log(`Mail Server ${config.get('mail.host')}`);
