@@ -1,9 +1,16 @@
+const auth = require('../middleware/auth');
 const bcrypt = require('bcrypt');
 const express = require('express');
 const _ = require('lodash');
 const router = express.Router();
 const { User, validation } = require('../modules/user');
 
+
+//Get user by json web token
+router.get('/me', auth, async (req, res) => {
+  let user = await User.findById(req.user._id).select('-password');
+  res.send(user);
+});
 
 //Get all users
 router.get('/', async (req, res) => {
