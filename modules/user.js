@@ -22,11 +22,12 @@ const userSchema = new mongoose.Schema({
     minlength: 2,
     maxlength: 255,
     required: true
-  }
+  },
+  isAdmin: Boolean
 });
 
 userSchema.methods.generateAuthToken = function() {
-  let token = jwt.sign({ _id: this._id }, config.get('jwtPrivateKey'));
+  let token = jwt.sign({ _id: this._id, isAdmin: this.isAdmin }, config.get('jwtPrivateKey'));
   return token;
 }
 

@@ -2,7 +2,6 @@ const config = require('config');
 const debug = require('debug')('app:startup');
 const express = require('express');
 const app = express();
-
 const mongoose = require('mongoose');
 
 if(!config.get('jwtPrivateKey')) {
@@ -47,10 +46,6 @@ app.use('/api/auth', auth);
 console.log(`Aplication Name ${config.get('name')}`);
 console.log(`Mail Server ${config.get('mail.host')}`);
 console.log(`Mail password ${config.get('mail.password')}`);
-
-// app.get('/api/customers', (req, res) => {
-//   res.render('index', {title: 'My Express App', message: 'Hello World!'})
-// });
 
 //Debuging 
 if(app.get('env') === 'development') {
