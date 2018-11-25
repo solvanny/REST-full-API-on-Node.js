@@ -8,7 +8,6 @@ const auth = require('../middleware/auth');
 
 //Get all genres
 router.get('/', async (req, res) => {
-
   const genres = await Genre.find().sort('name');
   res.send(genres);
 });

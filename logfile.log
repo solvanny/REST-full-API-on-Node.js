@@ -1,5 +1,0 @@
-{"level":"error","message":"Could not get the genres."}
-{"level":"error","message":"Could not get the genres."}
-{"level":"error","message":"Could not get the genres."}
-{"level":"error","message":"Could not get the genres."}
-{"name":"MongoNetworkError","errorLabels":["TransientTransactionError"],"level":"error","message":"failed to reconnect after 30 attempts with interval 1000 ms"}
