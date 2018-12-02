@@ -29,18 +29,10 @@ router.post('/', async (req, res) => {
 
 //Delete user by ID
 router.delete('/:id', async (req, res) => {
-  let user = await User.findByIdAndRemove(req.params.id);
+  let user = await User.findOneAndDelete({_id: req.params.id});
   if (!user) return res.status(404).send('The user with the given ID was not found.');
   res.send(user);
 });
-
-//Find user by ID
-router.get('/:id', async (req, res) => {
-  let user = await User.findById(req.params.id);
-  if (!user) return res.status(404).send('The user with the given ID was not found.');
-  res.send(user);
-});
-
 
 function validation(req) {
   let schema = {

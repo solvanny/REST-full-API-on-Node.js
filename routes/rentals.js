@@ -16,16 +16,16 @@ router.get('/', async (req, res) => {
 
 //Find rentals by ID
 router.get('/:id', async (req, res) => {
-  let rentals = await Rental.findById(req.body.id);
+  let rentals = await Rental.findOne(req.body.id);
   res.send(rentals);
 });
 
 //Create a new rental
 router.post('/', async (req, res) => {
-  let customer = await Customers.findById(req.body.customerId);
+  let customer = await Customers.findOne({_id: req.body.customerId});
   if(!customer) return res.status(404).send('This customer does not exists...')
 
-  let movie = await Movies.findById(req.body.movieId);
+  let movie = await Movies.findOne({_id: req.body.movieId});
   if(!movie) return res.status(404).send('This vonie does not exists...')
 
   if(movie.numberInStock === 0) return res.status(404).send('This movie doesn\'t in stock')
@@ -64,12 +64,12 @@ router.post('/', async (req, res) => {
 
 //Update rental
 router.put('/:id', async (req, res) => {
-  let customer = await Customers.findById(req.body.customerId);
-  let movie = await Movies.findById(req.body.movieId);
+  let customer = await Customers.findOne({_id: req.body.customerId});
+  let movie = await Movies.findOne({_id: req.body.movieId});
 
-  let rental = await Rental.findByIdAndUpdate(req.params.id, {
+  let rental = await Rental.findOneAndUpdate(req.params.id, {
     customer: {
-      id: customer._id,
+      _id: customer._id,
       name: customer.name,
       phone: customer.phone,
       address: customer.address,
@@ -89,7 +89,7 @@ router.put('/:id', async (req, res) => {
 
 //Delete rental
 router.delete('/:id', async (req, res) => {
-  let rental = await Rental.deliteOne({_id: req.marams.id})
+  let rental = await Rental.deleteOne({_id: req.params.id})
   res.send(rental);
 });
 

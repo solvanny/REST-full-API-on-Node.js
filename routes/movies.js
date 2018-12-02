@@ -14,7 +14,7 @@ router.get('/', async (req, res) => {
 
 //return object's property
 router.get('/:id', async (req, res) => {
-  let movie = await Movies.findById(req.params.id)
+  let movie = await Movies.findOne({_id: req.params.id})
   if(!movie) return res.status(404).send('This movie does not exist!');
   res.send(movie);
 });
@@ -25,7 +25,7 @@ router.post('/', async (req, res) => {
   const { error } = validate(req.body); 
   if (error) return res.status(400).send(error.details[0].message);
 
-  const genre = await Genre.findById(req.body.genreId);
+  const genre = await Genre.findOne({_id: req.body.genreId});
   if (!genre) return res.status(400).send('Invalid genre.');
 
   let movie = new Movies({ 
@@ -51,12 +51,13 @@ router.put('/:id', async (req, res) => {
   const { error } = validate(req.body); 
   if (error) return res.status(400).send(error.details[0].message);
 
-  const genre = await Genre.findById(req.body.genreId);
+  const genre = await Genre.findOne({_id: req.body.genreId});
   if (!genre) return res.status(400).send('Invalid genre.');
 
-  const movie = await Movie.findByIdAndUpdate(req.params.id,
+  const movie = await Movies.findOneAndUpdate(req.params.id,
     { 
       title: req.body.title,
+      year: req.body.year,
       genre: {
         _id: genre._id,
         name: genre.name
