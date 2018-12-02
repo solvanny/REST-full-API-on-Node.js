@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --watchAll"
   },
   "keywords": [],
   "author": "",
@@ -17,6 +17,7 @@
     "express-async-errors": "^3.1.1",
     "fawn": "^2.1.5",
     "helmet": "^3.14.0",
+    "jest": "^23.6.0",
     "joi": "^14.0.4",
     "joi-objectid": "^2.0.0",
     "joi-password-complexity": "^2.0.1",
@@ -26,6 +27,7 @@
     "morgan": "^1.9.1",
     "nodemon": "^1.18.5",
     "pug": "^2.0.3",
+    "save-dev": "^2.0.0",
     "winston": "^3.1.0",
     "winston-mongodb": "^4.0.3"
   }

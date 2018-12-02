@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { validate , Customers } = require('../modules/customer');
+const { validate , Customers } = require('../models/customer');
 
 
 //Create a new customer

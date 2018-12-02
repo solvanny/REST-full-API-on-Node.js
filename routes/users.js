@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const express = require('express');
 const _ = require('lodash');
 const router = express.Router();
-const { User, validation } = require('../modules/user');
+const { User, validation } = require('../models/user');
 
 
 //Get user by json web token
