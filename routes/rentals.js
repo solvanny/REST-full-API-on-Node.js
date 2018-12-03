@@ -89,7 +89,7 @@ router.put('/:id', async (req, res) => {
 
 //Delete rental
 router.delete('/:id', async (req, res) => {
-  let rental = await Rental.deleteOne({_id: req.params.id})
+  let rental = await Rental.findOneAndDelete({_id: req.params.id})
   res.send(rental);
 });
 

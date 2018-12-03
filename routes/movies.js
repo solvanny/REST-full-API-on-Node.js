@@ -2,8 +2,6 @@ const express = require('express');
 const router = express.Router();
 const { Movies, validate } = require('../models/movie');
 const { Genre } = require('../models/genre');
-const mongoose = require('mongoose');
-
 
 // return all object
 router.get('/', async (req, res) => {

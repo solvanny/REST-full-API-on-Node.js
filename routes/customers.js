@@ -51,7 +51,7 @@ router.put('/:id', async (req, res) => {
 //Remove customer by ID
 router.delete('/:id', async (req, res) => {
   console.log(req.params.id)
-  let customer = await Customers.deleteOne({_id: req.params.id});
+  let customer = await Customers.findOneAndDelete({_id: req.params.id});
   if(!customer) return res.status(404).send('Customer with this ID does not exist...');
   res.send(customer);
 });

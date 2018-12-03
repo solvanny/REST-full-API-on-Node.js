@@ -33,6 +33,9 @@ const rentalSchema = new mongoose.Schema({
   }
 });
 
+const Rental = mongoose.model('Rentals', rentalSchema);
+
+
 function validationRental(rental) {
   let schema = {
     customerId: Joi.string().required(),
@@ -41,6 +44,5 @@ function validationRental(rental) {
   return Joi.validate(rental, schema);
 };
 
-const Rental = mongoose.model('Rentals', rentalSchema);
 
 module.exports.Rental = Rental;
