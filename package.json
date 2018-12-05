@@ -30,5 +30,8 @@
     "save-dev": "^2.0.0",
     "winston": "^3.1.0",
     "winston-mongodb": "^4.0.3"
+  },
+  "devDependencies": {
+    "supertest": "^3.3.0"
   }
 }

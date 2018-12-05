@@ -2,4 +2,4 @@
   "name": "My Express App",
   "jwtPrivateKey": "",
   "db": "mongodb://localhost/vidlydb"
-}
+} 

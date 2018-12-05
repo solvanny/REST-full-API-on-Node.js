@@ -9,5 +9,7 @@ require('./startup/config')();
 require('./startup/debug')(app);
 require('./startup/validation')();
 
-var port = process.env.PORT || 3000;
-app.listen(port, () => winston.info(`Listning port ${port} ...`));
+const port = process.env.PORT || 3000;
+const server = app.listen(port, () => console.log(`Listning port ${port} ...`));
+
+module.exports = server;

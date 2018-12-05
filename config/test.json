@@ -1,4 +1,7 @@
 {
   "jwtPrivateKey": "myPrivateKey",
-  "db": "mongodb://localhost/vidlydb_tests"
+  "db": "mongodb://localhost/vidlydb_tests",
+  "mail": {
+    "host": "dev-mail-server"
+  }
 }
