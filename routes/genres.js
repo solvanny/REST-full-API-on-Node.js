@@ -1,10 +1,9 @@
+const validateObjectId = require('../middleware/validateObjectId');
 const express = require('express');
 const router = express.Router();
 const { Genre, validate } = require('../models/genre');
 const admin = require('../middleware/admin');
 const auth = require('../middleware/auth');
-
-
 
 //Get all genres
 router.get('/', async (req, res) => {
@@ -47,7 +46,8 @@ router.delete('/:id', [auth, admin], async (req, res) => {
 });
 
 //Find genre by ID
-router.get('/:id', async (req, res) => {
+router.get('/:id', validateObjectId, async (req, res) => {
+
   const genre = await Genre.findOne({_id: req.params.id});
 
   if (!genre) return res.status(404).send('The genre with the given ID was not found.');
