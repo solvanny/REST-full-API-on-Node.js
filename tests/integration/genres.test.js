@@ -1,6 +1,7 @@
 const request = require('supertest');
 const server = require('../../index');
 const { Genre } = require('../../models/genre');
+const { User } = require('../../models/user');
 
 describe('/api/genres',  () => {
  
@@ -44,6 +45,30 @@ describe('/api/genres',  () => {
       let res = await request(server).get('/api/genres/1');
 
       expect(res.status).toBe(404);
+    });
+  });
+
+  describe('POST /', () => {
+    it('should return 400 if genre less than 5 characters', async () => {
+      const token = new User().generateAuthToken();
+     
+      let res = await request(server)
+        .post('/api/genres')
+        .set('x-auth-token', token)
+        .send({name: "1234"});
+
+      expect(res.status).toBe(400);
+    });
+
+    it('should return 400 if genre is more than 50 characters', async () => {
+      const token = new User().generateAuthToken();
+      let name = new Array(52).join('a')
+      let res = await request(server)
+        .post('/api/genres')
+        .set('x-auth-token', token)
+        .send({name: name});
+
+      expect(res.status).toBe(400);
     });
   });
 });
