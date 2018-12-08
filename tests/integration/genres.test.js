@@ -2,13 +2,14 @@ const request = require('supertest');
 const server = require('../../index');
 const { Genre } = require('../../models/genre');
 const { User } = require('../../models/user');
+const mongoose = require('mongoose');
 
 describe('/api/genres',  () => {
  
   beforeEach(() => { server });
   afterEach( async () => { 
     server.close();
-    await Genre.deleteMany({});
+    await Genre.deleteOne({});
   });
 
   describe('GET /', () => {
@@ -37,12 +38,17 @@ describe('/api/genres',  () => {
       expect(res.status).toBe(200);
       expect(res.body).toHaveProperty('name', genre.name)
     });
-  });
 
-  describe('GET /:id', () => {
     it ('should return error 404 if invalid id is passed ', async () => {
      
       let res = await request(server).get('/api/genres/1');
+
+      expect(res.status).toBe(404);
+    });
+
+    it ('should return error 404 if no genre with given ID exists', async () => {
+      let id = mongoose.Types.ObjectId();
+      let res = await request(server).get('/api/genres/' + id);
 
       expect(res.status).toBe(404);
     });
@@ -52,8 +58,8 @@ describe('/api/genres',  () => {
     let token;
     let name;
 
-    const exec = async function() {
-      return await request(server)
+    const exec = function() {
+      return request(server)
         .post('/api/genres')
         .set('x-auth-token', token)
         .send({name});
