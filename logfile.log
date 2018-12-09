@@ -1,0 +1,2 @@
+{"expose":true,"statusCode":400,"status":400,"body":"{\n\t\"name\": \"Ion\"\n\t\"email\": \"elena.ve@gmail.com\",\n\t\"password\": \"solvanny\"\n}","type":"entity.parse.failed","level":"error","message":"Unexpected string in JSON at position 18"}
+{"expose":true,"statusCode":400,"status":400,"body":"{\n\t \"name\": \"Super Action\",\n}","type":"entity.parse.failed","level":"error","message":"Unexpected token } in JSON at position 28"}
