@@ -10,6 +10,7 @@ const logger = require('../logger');
 const authentication = require('../authentication');
 const error = require('../middleware/error');
 const helmet = require('helmet');
+const returns = require('../routes/returns');
 
 
 module.exports = function(app) {
@@ -29,5 +30,6 @@ module.exports = function(app) {
   app.use('/api/rentals', rentals)
   app.use('/api/users', users);
   app.use('/api/auth', auth);
+  app.use('/api/returns', returns)
   app.use(error);
 }

@@ -7,7 +7,7 @@ describe('auth middlevare', () => {
 
   beforeEach(() => { server });
   afterEach( async () => { 
-    server.close(); 
+    await server.close(); 
     await Genre.deleteOne({});
   });
 

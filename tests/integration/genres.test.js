@@ -8,7 +8,7 @@ const server = require('../../index');
 describe('/api/genres', () => {
   beforeEach(() => { server })
   afterEach(async () => { 
-    server.close(); 
+    await server.close(); 
     await Genre.deleteOne({});
   });
 
