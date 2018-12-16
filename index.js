@@ -13,6 +13,6 @@ const port = process.env.PORT;
 const server = app.listen(port, () => console.log(`Listning port ${port} ...`));
 
 //not a recomandation solution only for a development testing
-server.timeout = 0;
+// server.timeout = 0;
 
 module.exports = server;

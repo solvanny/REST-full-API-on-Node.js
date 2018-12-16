@@ -44,7 +44,11 @@ router.post('/', async (req, res) => {
       genre: movie.genre,
       year: movie.year,
       dailyRentalRate: movie.dailyRentalRate
-    }
+    },
+    rentalsPerDay: rental.rentalsPerDay,
+    dateOut: rental.dateOut,
+    dateReturned: rental.dateReturned,
+    rentalFee: rental.rentalFee
   });
 
   try{
