@@ -135,7 +135,7 @@ describe('/api/returns', () => {
 
     expect(getRental).toHaveProperty('dateOut');
     expect(Object.keys(res.body)).toEqual(
-      expect.arrayContaining(['dateReturned', 'rentalFee',
+      expect.arrayContaining([ 'dateReturned', 'rentalFee',
       'customer', 'movie']));
   });
 });

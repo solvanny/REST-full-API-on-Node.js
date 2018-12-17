@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const Fawn = require('fawn');
-const { Rental } = require('../models/rental');
+const middlValidate = require('../middleware/validate');
+const { Rental, validate } = require('../models/rental');
 const { Customers } = require('../models/customer');
 const { Movies } = require('../models/movie');
 
@@ -15,13 +16,15 @@ router.get('/', async (req, res) => {
 });
 
 //Find rentals by ID
-router.get('/:id', async (req, res) => {
+router.get('/:id', middlValidate(validate), async (req, res) => {
+
   let rentals = await Rental.findOne(req.body.id);
   res.send(rentals);
 });
 
 //Create a new rental
-router.post('/', async (req, res) => {
+router.post('/', middlValidate(validate), async (req, res) => {
+ 
   let customer = await Customers.findOne({_id: req.body.customerId});
   if(!customer) return res.status(404).send('This customer does not exists...')
 
@@ -67,7 +70,8 @@ router.post('/', async (req, res) => {
 });
 
 //Update rental
-router.put('/:id', async (req, res) => {
+router.put('/:id', middlValidate(validate), async (req, res) => {
+
   let customer = await Customers.findOne({_id: req.body.customerId});
   let movie = await Movies.findOne({_id: req.body.movieId});
 
@@ -85,7 +89,10 @@ router.put('/:id', async (req, res) => {
       genre: movie.genre,
       year: movie.year
     },
-    rentalsPerDay: req.body.rentalsPerDay
+    rentalsPerDay: req.body.rentalsPerDay,
+    dateOut: rental.dateOut,
+    dateReturned: rental.dateReturned,
+    rentalFee: rental.rentalFee
   });
   rental = await rental.save();
   res.send(rental);
