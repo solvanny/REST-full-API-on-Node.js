@@ -1,4 +1,3 @@
-const express = require('express');
 const Joi = require('joi');
 const mongoose = require('mongoose');
 
@@ -54,9 +53,14 @@ const rentalSchema = new mongoose.Schema({
   }
 });
 
+rentalSchema.statics.lookup = function(customerId, movieId) {
+  return this.findOne({
+    'customer._id' : customerId,
+    'movie._id': movieId
+  });
+}
 
 const Rental = mongoose.model('Rentals', rentalSchema);
-
 
 function validationRental(rental) {
   let schema = {
@@ -65,7 +69,6 @@ function validationRental(rental) {
   }
   return Joi.validate(rental, schema);
 };
-
 
 exports.Rental = Rental;
 exports.validate = validationRental;
