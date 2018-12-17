@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt');
 const express = require('express');
 const _ = require('lodash');
 const router = express.Router();
+const validate = require('../middleware/validate');
 const { User} = require('../models/user');
 const Joi = require('joi');
 
@@ -13,9 +14,7 @@ router.get('/', async (req, res) => {
 });
 
 //Create a new user
-router.post('/', async (req, res) => {
-  let { error } = validation(req.body); 
-  if (error) return res.status(400).send(error.details[0].message);
+router.post('/', validate(validation), async (req, res) => {
 
   let user = await User.findOne({email: req.body.email});
   if(!user) res.status(400).send('Invalid email or password.');

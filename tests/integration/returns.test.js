@@ -129,10 +129,11 @@ describe('/api/returns', () => {
   });
 
   it('should return the rental if input is valid', async () => {
-    const res = await exec();
+    let res = await exec();
 
-    const rentalInDb = await Rental.findById(rental._id);
+    let getRental = await Rental.findById(rental._id);
 
+    expect(getRental).toHaveProperty('dateOut');
     expect(Object.keys(res.body)).toEqual(
       expect.arrayContaining(['dateReturned', 'rentalFee',
       'customer', 'movie']));

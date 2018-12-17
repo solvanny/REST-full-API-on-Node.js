@@ -1,6 +1,7 @@
 const validateObjectId = require('../middleware/validateObjectId');
 const express = require('express');
 const router = express.Router();
+const  middlValidate = require('../middleware/validate');
 const { Genre, validate } = require('../models/genre');
 const admin = require('../middleware/admin');
 const auth = require('../middleware/auth');
@@ -12,9 +13,7 @@ router.get('/', async (req, res) => {
 });
 
 //Create a new genre
-router.post('/', auth, async (req, res) => {
-  const { error } = validate(req.body); 
-  if (error) return res.status(400).send(error.details[0].message);
+router.post('/', [auth,  middlValidate(validate)], async (req, res) => {
 
   let genre = new Genre({ name: req.body.name });
   genre = await genre.save();
@@ -23,9 +22,7 @@ router.post('/', auth, async (req, res) => {
 });
 
 //Update genre by ID
-router.put('/:id', auth, async (req, res) => {
-  const { error } = validate(req.body); 
-  if (error) return res.status(400).send(error.details[0].message);
+router.put('/:id', [auth,  middlValidate(validate)], async (req, res) => {
 
   const genre = await Genre.findOneAndUpdate(req.params.id, { name: req.body.name }, {
     new: true

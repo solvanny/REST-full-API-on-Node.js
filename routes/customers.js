@@ -1,12 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const middlValidate = require('../middleware/validate');
 const { validate , Customers } = require('../models/customer');
 
 
 //Create a new customer
-router.post('/', async (req, res) => {
-  let { error } = validate(req.body);
-  if(error) res.status(400).send(error.details[0].message);
+router.post('/', middlValidate(validate), async (req, res) => {
 
   let newCustomer = new Customers({
     name: req.body.name,
@@ -32,9 +31,7 @@ router.get('/:id', async (req, res) => {
 });
 
 //Update customer by ID
-router.put('/:id', async (req, res) => {
-  let { error } = validate(req.body);
-  if(error) return res.status(400).send(error.details[0].message);
+router.put('/:id', middlValidate(validate), async (req, res) => {
 
   let customer = await Customers.findOneAndUpdate( req.params.id, { 
     name: req.body.name,

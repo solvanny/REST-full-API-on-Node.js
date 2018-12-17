@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const express = require('express');
 const _ = require('lodash');
 const router = express.Router();
+const  middlValidate = require('../middleware/validate');
 const { User, validation } = require('../models/user');
 
 
@@ -19,9 +20,7 @@ router.get('/', async (req, res) => {
 });
 
 //Create a new user
-router.post('/', async (req, res) => {
-  let { error } = validation(req.body); 
-  if (error) return res.status(400).send(error.details[0].message);
+router.post('/',  middlValidate(validation), async (req, res) => {
 
   let user = await User.findOne({email: req.body.email});
   if(user) res.status(400).send('User allredy registred!');
@@ -37,9 +36,7 @@ router.post('/', async (req, res) => {
 });
 
 //Update user by ID
-router.put('/:id', async (req, res) => {
-  let { error } = validation(req.body); 
-  if (error) return res.status(400).send(error.details[0].message);
+router.put('/:id', middlValidate(validation), async (req, res) => {
   let user = await User.findOneAndUpdate(req.params.id, _.pick(req.body, ['name', 'password', 'email']), { new: true });
   if (!user) return res.status(404).send('The user with the given ID was not found.');
   res.send(user);

@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const middlValidate = require('../middleware/validate');
 const { Movies, validate } = require('../models/movie');
 const { Genre } = require('../models/genre');
 
@@ -17,11 +18,8 @@ router.get('/:id', async (req, res) => {
   res.send(movie);
 });
 
-
 //create a new property of object
-router.post('/', async (req, res) => {
-  const { error } = validate(req.body); 
-  if (error) return res.status(400).send(error.details[0].message);
+router.post('/', middlValidate(validate), async (req, res) => {
 
   const genre = await Genre.findOne({_id: req.body.genreId});
   if (!genre) return res.status(400).send('Invalid genre.');
@@ -45,9 +43,7 @@ router.post('/', async (req, res) => {
 });
 
 //Update a property of object
-router.put('/:id', async (req, res) => {
-  const { error } = validate(req.body); 
-  if (error) return res.status(400).send(error.details[0].message);
+router.put('/:id', middlValidate(validate), async (req, res) => {
 
   const genre = await Genre.findOne({_id: req.body.genreId});
   if (!genre) return res.status(400).send('Invalid genre.');
@@ -69,14 +65,11 @@ router.put('/:id', async (req, res) => {
   res.send(movie);
 });
 
-
 router.delete('/:id', async (req, res) => {
   let movie = await Movies.deleteOne({_id: req.params.id});
 
   if(!movie) return res.status(404).send('This movie does not exist!');
   res.send(movie);
 });
-
-
 
 module.exports = router;
