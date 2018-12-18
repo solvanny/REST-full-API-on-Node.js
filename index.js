@@ -8,11 +8,9 @@ require('./startup/logging')();
 require('./startup/config')();
 require('./startup/debug')(app);
 require('./startup/validation')();
+require('./startup/prod')(app);
 
-const port = process.env.PORT;
-const server = app.listen(port, () => console.log(`Listning port ${port} ...`));
-
-//not a recomandation solution only for a development testing
-// server.timeout = 0;
+const port = process.env.PORT || 3000;
+const server = app.listen(port, () => winston.log('info', `Listning port ${port} ...`));
 
 module.exports = server;

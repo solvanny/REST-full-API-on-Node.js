@@ -9,7 +9,7 @@ const pug = require('pug');
 const logger = require('../logger');
 const authentication = require('../authentication');
 const error = require('../middleware/error');
-const helmet = require('helmet');
+
 const returns = require('../routes/returns');
 
 
@@ -17,7 +17,6 @@ module.exports = function(app) {
   app.set('view engine', 'pug');
   app.set('views', './views'); //default
   app.use(express.json());
-  app.use(helmet());
 
   app.use(express.urlencoded({extended: true}));
   app.use(express.static('public'));

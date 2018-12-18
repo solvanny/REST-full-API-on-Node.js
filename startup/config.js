@@ -11,7 +11,7 @@ module.exports = function () {
     throw new Error('FATAL ERROR: mail host is not defined.');
   }
   
-  console.log(`Aplication Name ${config.get('name')}`);
-  console.log(`Mail Server ${config.get('mail.host')}`);
-  console.log(`Mail password ${config.get('mail.password')}`);
+  winston.info(`Aplication Name ${config.get('name')}`);
+  winston.info(`Mail Server ${config.get('mail.host')}`);
+  winston.info(`Mail password ${config.get('mail.password')}`);
 };

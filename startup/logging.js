@@ -6,7 +6,10 @@ module.exports = function() {
 
   winston.createLogger(
     new winston.transports.Console({ colorize: true, prettyPrint: true }),
-    new winston.transports.File({filename: 'uncaughtExceptions.log'}));
+    new winston.transports.File({
+      filename: 'uncaughtExceptions.log',
+      format: winston.format.json()
+    }));
   
   process.on('unhandledRejection', (ex) => {
     throw ex;
@@ -14,6 +17,7 @@ module.exports = function() {
   
   winston.add(new winston.transports.File ({ 
     filename: 'logfile.log', 
+    format: winston.format.json(),
     level: 'error'
   }));
   
