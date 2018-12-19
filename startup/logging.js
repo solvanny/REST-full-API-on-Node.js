@@ -25,8 +25,8 @@ module.exports = function() {
   }));
 
   
-  winston.add(new winston.transports.MongoDB ({
-    db: 'mongodb://localhost/vidlydb', 
-    level: 'info'
-  }));
+  // winston.add(new winston.transports.MongoDB ({
+  //   db: 'mongodb://localhost/vidlydb', 
+  //   level: 'info'
+  // }));
 }
