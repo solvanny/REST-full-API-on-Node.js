@@ -7,5 +7,5 @@ module.exports = function() {
   let options = {useNewUrlParser: true}
 
   mongoose.connect(db, options)
-    .then(() => winston.log('info', `Connected to ${db}...`))
+    .then(() => console.log(`Connected to ${db}...`))
 }
