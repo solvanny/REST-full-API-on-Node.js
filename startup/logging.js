@@ -6,10 +6,7 @@ module.exports = function() {
 
   winston.createLogger(
     new winston.transports.Console({ colorize: true, prettyPrint: true }),
-    new winston.transports.File({
-      filename: 'uncaughtExceptions.log',
-      format: winston.format.json()
-    }));
+   );
   
   process.on('unhandledRejection', (ex) => {
     throw ex;
@@ -20,6 +17,13 @@ module.exports = function() {
     format: winston.format.json(),
     level: 'error'
   }));
+
+  winston.add( new winston.transports.File({
+    filename: 'uncaughtExceptions.log',
+    format: winston.format.json(),
+    level: 'error'
+  }));
+
   
   winston.add(new winston.transports.MongoDB ({
     db: 'mongodb://localhost/vidlydb', 
