@@ -1,6 +1,9 @@
 {
   "name": "My Express App - Production",
+  "jwtPrivateKey": "vidly_jwtPrivateKey",
+  "db": "vidly_db",
   "mail": {
-    "host": "production-mail-server"
-  }
+    "host": "production-mail-server",
+    "password": "app_password"
+  } 
 }
